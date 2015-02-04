@@ -51,8 +51,13 @@ if (!class_exists('LandbankCustomPostTypes')){
                     'not_found'   => __('Person Profile Not Found'),
                     'not_found_in_trash'   => __('Person Profile not found in trash'),
               ),
-                'taxonomies' => array('category'),
+                'taxonomies' => array(''),
                 'public' => true,
+                'supports' => array(
+                  'title',
+                  'editor',
+                  'thumbnail'
+                  ),
                 'has_archive' => true,
                 'menu_position' => 5,
                 'menu_icon' => 'dashicons-businessman',
@@ -91,3 +96,54 @@ function remove_medical_press_theme_features() {
 }
 
 add_action( 'after_setup_theme', 'remove_medical_press_theme_features', 10 );
+
+/*-----------------------------------------------------------------------------------*/
+/* Custom Taxonomy
+/*-----------------------------------------------------------------------------------*/
+
+if (!class_exists("LandbankCustomTax")){
+    class LandbankCustomTax {
+            function add_custom_taxonomies() {
+                register_taxonomy('departments',
+                    array(
+                        'person_page'
+                    ), array(
+                        'hierarchical' => true,
+                        // This array of options controls the labels displayed in the WordPress Admin UI
+                        'labels' => array(
+                            'name' => _x( 'Department', 'taxonomy general name'),
+                            'singular_name' => _x( 'Department', 'taxonomy singular name'),
+                            'menu_name' =>     __('Departments'),
+                            'search_items' =>  __( 'Search Departments' ),
+                            'all_items' =>     __( 'All Departments' ),
+                            'edit_item' =>     __( 'Edit Departments' ),
+                            'update_item' =>   __( 'Update Departments' ),
+                            'add_new_item' =>  __( 'Add New Department' ),
+                            'new_item_name' => __( 'New Department Name' ),
+                            'menu_name' =>     __( 'Departments' ),
+                        ),
+                    'public' => true,
+                    'show_admin_column' => true,
+                    // Control the slugs used for this taxonomy
+                    'rewrite' => array(
+                      'slug' => '', // This controls the base slug that will display before each term
+                      'with_front' => false, // Don't display the category base before "/topics/"
+                      'hierarchical' => true // This will allow URL's like "/topics/water/billing"
+                    ),
+                    'capabilities' => array(
+                       //TODO decide who can do what with this tax
+                    ),
+              ));
+            }
+    }//end PhilaGovCustomTax
+}
+
+//create instance of PhilaGovCustomTax
+if (class_exists("LandbankCustomTax")){
+    $landbank_tax = new LandbankCustomTax();
+}
+
+if (isset($landbank_tax)){
+    //WP actions
+    add_action( 'init', array($landbank_tax, 'add_custom_taxonomies'), 0 );
+}
