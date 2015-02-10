@@ -1,2 +1,5 @@
 /* = Child Theme Custom CSS File
 -------------------------------------------------------------- */
+.home-slider, .home-search {
+  background:white;
+}
