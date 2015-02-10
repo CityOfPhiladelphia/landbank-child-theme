@@ -63,7 +63,7 @@ if (!class_exists('LandbankCustomPostTypes')){
                 'menu_icon' => 'dashicons-businessman',
                 'hierarchical' => true,
                 'rewrite' => array(
-                    'slug' => '',
+                    'slug' => 'leadership',
                 ),
             )
           );
@@ -127,7 +127,7 @@ if (!class_exists("LandbankCustomTax")){
                     // Control the slugs used for this taxonomy
                     'rewrite' => array(
                       'slug' => '', // This controls the base slug that will display before each term
-                      'with_front' => false, // Don't display the category base before "/topics/"
+                      'with_front' => false, // Don't display the category base before
                       'hierarchical' => true // This will allow URL's like "/topics/water/billing"
                     ),
                     'capabilities' => array(
@@ -146,4 +146,145 @@ if (class_exists("LandbankCustomTax")){
 if (isset($landbank_tax)){
     //WP actions
     add_action( 'init', array($landbank_tax, 'add_custom_taxonomies'), 0 );
+}
+
+/*-----------------------------------------------------------------------------------*/
+/* Metaboxes
+/*-----------------------------------------------------------------------------------*/
+
+add_filter( 'rwmb_meta_boxes', 'landbank_register_meta_boxes' );
+
+function landbank_register_meta_boxes( $meta_boxes )
+{
+    $prefix = 'lb_';
+
+    // 1st meta box
+    $meta_boxes[] = array(
+        'id'       => 'the_job_title',
+        'title'    => 'Job Title',
+        'pages'    => array( 'person_page' ),
+        'context'  => 'normal',
+        'priority' => 'high',
+
+        'fields' => array(
+            array(
+                'name'  => 'Job Title',
+                'desc'  => '',
+                'id'    => $prefix . 'job_title',
+                'type'  => 'text',
+                'std'   => '',
+                'class' => 'custom-class',
+                'clone' => false,
+            ),
+        )
+    );
+
+    return $meta_boxes;
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/*	Theme Breadcrumb
+/*-----------------------------------------------------------------------------------*/
+
+if (!function_exists('theme_breadcrumb')) {
+    function theme_breadcrumb()
+    {
+
+        echo '<ul class="breadcrumb clearfix">';
+
+        /* For all pages other than front page */
+        if (!is_front_page()) {
+            echo '<li>';
+            echo '<a href="' . home_url() . '">' . get_bloginfo('name') . '</a>';
+            echo '<span class="divider"></span></li>';
+        }
+
+        /* For index.php OR blog posts page */
+        if (is_home()) {
+            $page_for_posts = get_option('page_for_posts');
+            if ($page_for_posts) {
+                $blog = get_post($page_for_posts);
+                echo '<li>';
+                echo $blog->post_title;
+                echo '</li>';
+            } else {
+                echo '<li>';
+                _e('Blog', 'framework');
+                echo '<li>';
+            }
+        }
+
+        if (is_category() || is_singular('post')) {
+            $category = get_the_category();
+            $ID = $category[0]->cat_ID;
+            echo '<li>';
+            echo get_category_parents($ID, TRUE, ' <span class="divider"></span></li><li>', FALSE);
+        }
+
+        if (is_tax('gallery-item-type') || is_tax('department')) {
+            $current_term = get_term_by('slug', get_query_var('term'), get_query_var('taxonomy'));
+            if (!empty($current_term->name)) {
+                echo '<li class="active">';
+                echo $current_term->name;
+                echo '</li>';
+            }
+        }
+
+        if (is_singular('post') || is_singular('doctor') || is_singular('service') || is_singular('gallery-item') || is_page() || is_singular('person_page') ) {
+            global $post;
+            $parent_id = $post->post_parent;
+            if(  is_page() && $parent_id ){
+                $parents = array();
+                while ( $parent_id ) {
+                    $parents[] = $parent_id;
+                    $page = get_post( $parent_id );
+                    $parent_id = $page->post_parent;
+                }
+                $parents_count = count( $parents );
+                for( $i = $parents_count; $i > 0; ){
+                    $parent_id = $parents[--$i];
+                    echo '<li>';
+                        echo '<a href="' . get_the_permalink( $parent_id ) . '">' ;
+                        echo get_the_title( $parent_id );
+                        echo '</a>';
+                        echo '<span class="divider"></span>';
+                    echo '</li>';
+                }
+            }
+
+            echo '<li class="active">';
+            the_title();
+            echo '</li>';
+        }
+
+        if (is_tag()) {
+            echo '<li>';
+            _e('Tag: ', 'framework');
+            echo single_tag_title('', FALSE);
+            echo '</li>';
+        }
+
+        if (is_404()) {
+            echo '<li>';
+            _e('404 - Page not Found', 'framework');
+            echo '</li>';
+
+        }
+
+        if (is_search()) {
+            echo '<li>';
+            _e('Search', 'framework');
+            echo '</li>';
+        }
+
+        if (is_year()) {
+            echo '</li>';
+            echo get_the_time('Y');
+            echo '</li>';
+        }
+
+        echo "</ul>";
+
+    }
 }
