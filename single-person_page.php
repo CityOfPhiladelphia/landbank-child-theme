@@ -46,7 +46,7 @@ get_template_part('template-parts/banner');
 
                                         if(function_exists(rwmb_meta) && (rwmb_meta( 'lb_job_title' ) != '') ){
                                           echo '<p><strong>Title:</strong> ' . rwmb_meta( 'lb_job_title' ) . '</p>';
-                                       }
+                                        }
                                       ?>
                                     </header>
 

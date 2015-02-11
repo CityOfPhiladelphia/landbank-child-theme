@@ -63,7 +63,7 @@ if (!class_exists('LandbankCustomPostTypes')){
                 'menu_icon' => 'dashicons-businessman',
                 'hierarchical' => true,
                 'rewrite' => array(
-                    'slug' => 'leadership',
+                    'slug' => 'profile',
                 ),
             )
           );
@@ -161,7 +161,7 @@ function landbank_register_meta_boxes( $meta_boxes )
     // 1st meta box
     $meta_boxes[] = array(
         'id'       => 'the_job_title',
-        'title'    => 'Job Title',
+        'title'    => 'Additional Information',
         'pages'    => array( 'person_page' ),
         'context'  => 'normal',
         'priority' => 'high',
@@ -172,6 +172,15 @@ function landbank_register_meta_boxes( $meta_boxes )
                 'desc'  => '',
                 'id'    => $prefix . 'job_title',
                 'type'  => 'text',
+                'std'   => '',
+                'class' => 'custom-class',
+                'clone' => false,
+            ),
+            array(
+                'name'  => 'Committees',
+                'desc'  => '',
+                'id'    => $prefix . 'committees',
+                'type'  => 'textarea',
                 'std'   => '',
                 'class' => 'custom-class',
                 'clone' => false,
