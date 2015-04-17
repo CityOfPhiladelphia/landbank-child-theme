@@ -34,6 +34,23 @@ function dynamic_section($sections) {
  *
  */
 
+/**
+ * Filter the upload size limit for non-administrators.
+ *
+ * @param string $size Upload size limit (in bytes).
+ * @return int (maybe) Filtered size limit.
+ */
+function filter_site_upload_size_limit( $size ) {
+    // Set the upload size limit to 10 MB for users lacking the 'manage_options' capability.
+    if ( current_user_can( 'manage_options' ) ) {
+        // 20 MB.
+        $size = 1024 * 40000;
+    }
+    return $size;
+}
+add_filter( 'upload_size_limit', 'filter_site_upload_size_limit', 20 );
+
+
 if (!class_exists('LandbankCustomPostTypes')){
     class LandbankCustomPostTypes{
         function create_person_profile() {
@@ -147,50 +164,6 @@ if (isset($landbank_tax)){
     //WP actions
     add_action( 'init', array($landbank_tax, 'add_custom_taxonomies'), 0 );
 }
-
-/*-----------------------------------------------------------------------------------*/
-/* Metaboxes
-/*-----------------------------------------------------------------------------------*/
-
-add_filter( 'rwmb_meta_boxes', 'landbank_register_meta_boxes' );
-
-function landbank_register_meta_boxes( $meta_boxes )
-{
-    $prefix = 'lb_';
-
-    // 1st meta box
-    $meta_boxes[] = array(
-        'id'       => 'the_job_title',
-        'title'    => 'Additional Information',
-        'pages'    => array( 'person_page' ),
-        'context'  => 'normal',
-        'priority' => 'high',
-
-        'fields' => array(
-            array(
-                'name'  => 'Job Title',
-                'desc'  => '',
-                'id'    => $prefix . 'job_title',
-                'type'  => 'text',
-                'std'   => '',
-                'class' => 'custom-class',
-                'clone' => false,
-            ),
-            array(
-                'name'  => 'Committees',
-                'desc'  => '',
-                'id'    => $prefix . 'committees',
-                'type'  => 'textarea',
-                'std'   => '',
-                'class' => 'custom-class',
-                'clone' => false,
-            ),
-        )
-    );
-
-    return $meta_boxes;
-}
-
 
 /*-----------------------------------------------------------------------------------*/
 /*	Theme Breadcrumb
