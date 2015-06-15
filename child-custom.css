@@ -56,3 +56,14 @@ nav.main-menu ul > li ul li a {
     min-height: 100%;
   }
 }
+
+.ecf-body {
+	max-width:550px;
+}
+.input, .textarea {
+	width:100%;
+}
+#search form input[type="text"] {
+  	background-color: #3A3C41;
+	color:#f0f5f7;
+}
