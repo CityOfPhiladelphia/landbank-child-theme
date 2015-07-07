@@ -152,7 +152,7 @@ if ($theme_options['display_top_header']) {
 
                 <div id="responsive-menu-container"></div>
 			</div>
-		<div class="<?php bc_all('2'); ?>">
+			<div class="<?php bc_all('2'); ?>">
           <div id="search" class="widget clearfix">
               <form method="get" id="search-form" class="search-form" action="<?php echo esc_url(home_url('/')); ?>">
                   <div>

@@ -605,26 +605,26 @@
     /*-----------------------------------------------------------------*/
     /* Animations Effects
     /*-----------------------------------------------------------------*/
-    $('.animated').addClass('show');
+    $('.animated').appear();
 
     $(document.body).on('appear', '.fade', function () {
         $(this).each(function () {
-            $(this).addClass('show')
+            $(this).addClass('')
         });
     });
     $(document.body).on('appear', '.slide-animate', function () {
         $(this).each(function () {
-            $(this).addClass('show')
+            $(this).addClass('')
         });
     });
     $(document.body).on('appear', '.hatch', function () {
         $(this).each(function () {
-            $(this).addClass('show')
+            $(this).addClass('')
         });
     });
     $(document.body).on('appear', '.entrance', function () {
         $(this).each(function () {
-            $(this).addClass('show')
+            $(this).addClass('')
         });
     });
     $(document.body).on('appear', '.tada', function () {
@@ -634,52 +634,52 @@
     });
     $(document.body).on('appear', '.rotate-up', function () {
         $(this).each(function () {
-            $(this).addClass('show')
+            $(this).addClass('')
         });
     });
     $(document.body).on('appear', '.rotate-down', function () {
         $(this).each(function () {
-            $(this).addClass('show')
+            $(this).addClass('')
         });
     });
     $(document.body).on('appear', '.fadeInDown', function () {
         $(this).each(function () {
-            $(this).addClass('show')
+            $(this).addClass('')
         });
     });
     $(document.body).on('appear', '.fadeInUp', function () {
         $(this).each(function () {
-            $(this).addClass('show')
+            $(this).addClass('')
         });
     });
     $(document.body).on('appear', '.fadeInLeft', function () {
         $(this).each(function () {
-            $(this).addClass('show')
+            $(this).addClass('')
         });
     });
     $(document.body).on('appear', '.fadeInRight', function () {
         $(this).each(function () {
-            $(this).addClass('show')
+            $(this).addClass('')
         });
     });
     $(document.body).on('appear', '.fadeInDownBig', function () {
         $(this).each(function () {
-            $(this).addClass('show')
+            $(this).addClass('')
         });
     });
     $(document.body).on('appear', '.fadeInUpBig', function () {
         $(this).each(function () {
-            $(this).addClass('show')
+            $(this).addClass('')
         });
     });
     $(document.body).on('appear', '.fadeInLeftBig', function () {
         $(this).each(function () {
-            $(this).addClass('show')
+            $(this).addClass('')
         });
     });
     $(document.body).on('appear', '.fadeInRightBig', function () {
         $(this).each(function () {
-            $(this).addClass('show')
+            $(this).addClass('')
         });
     });
 

@@ -219,3 +219,11 @@ if (!function_exists('theme_breadcrumb')) {
 
     }
 }
+//[feedback_link]
+function feedback_shortcode_function( $atts ){
+
+	$full_url =  "https://docs.google.com/forms/d/1howWdLf1j0VtjRdkUsehYl9x6g-zdGyOuv6iEQ8wimY/viewform?entry.893934780&entry.526820711=" . "//$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+	return $full_url;
+}
+add_shortcode( 'feedback_link', 'feedback_shortcode_function' );
+

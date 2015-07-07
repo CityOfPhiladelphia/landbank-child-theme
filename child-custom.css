@@ -67,3 +67,11 @@ nav.main-menu ul > li ul li a {
   	background-color: #3A3C41;
 	color:#f0f5f7;
 }
+
+.blog-page .left_meta time strong{
+	font-size: 20px;
+}
+
+.blog-page .left_meta time {
+  padding: 8px 0 5px;
+}

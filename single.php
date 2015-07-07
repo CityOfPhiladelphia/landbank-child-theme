@@ -25,11 +25,6 @@ get_template_part('template-parts/banner');
                             the_post();
                             ?>
                             <article id="post-<?php the_ID(); ?>" <?php post_class(' clearfix'); ?> >
-                                <div class="left_meta clearfix entry-meta">
-                                    <time class="entry-time updated" datetime="<?php the_modified_time('c'); ?>"><?php the_modified_time('M'); ?>
-                                        <strong><?php the_modified_time('d'); ?></strong></time>
-                                    <span class="comments_count clearfix entry-comments-link"><?php comments_popup_link(__('0', 'framework'), __('1', 'framework'), __('%', 'framework')); ?></span>
-                                </div>
                                 <div class="right-contents">
                                     <header class="entry-header">
                                         <?php
@@ -81,6 +76,12 @@ get_template_part('template-parts/banner');
                                             </span>
                                         </p>
                                     </footer>
+                                </div>
+								 <div class="posted-on">
+									 <?php echo 'Posted on';?>
+                                    <time class="entry-time updated" datetime="<?php the_modified_time('c'); ?>"><?php the_modified_time('M'); ?>
+                                        <strong><?php the_modified_time('d'); ?></strong></time>
+                                    <span class="comments_count clearfix entry-comments-link"><?php comments_popup_link(__('0', 'framework'), __('1', 'framework'), __('%', 'framework')); ?></span>
                                 </div>
                             </article>
                         <?php
